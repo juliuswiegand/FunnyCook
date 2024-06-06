@@ -124,7 +124,7 @@ function removeHP() {
     }, 100);
 
     if (hp === 0) {
-        alert("You died!");
+        alert("Game over");
         window.location.reload();
     }
 }
