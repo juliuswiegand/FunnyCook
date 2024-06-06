@@ -2,18 +2,34 @@ body {
     font-family: sans-serif;
     transition: background-color 0.15s ease;
 
-    .hpWrapper {
-        padding: 20px;
+    .statusBar {
+    padding: 20px;
         width: calc(100% - 40px);
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        gap:10px;
+        gap:30px;
 
-        .hp {
-            width: 50px;
-            height: 50px;
+        .statusBarItem {
+            width: 120px;
+            background-color: rgb(206, 206, 206);
+            border-radius: 10px;
+            color: rgb(46, 46, 46);
+            padding: 15px;
+
+            p {
+                font-size: 30px;
+                text-align: center;
+                margin: 0;
+            }
+        }
+
+        .hpWrapper {
+            .hp {
+                width: 50px;
+                height: 50px;
+            }
         }
     }
 
@@ -30,13 +46,12 @@ body {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(4, 1fr);
-            grid-gap: 10px;
+            row-gap: 10px;
     
             .gridItem {
-                height: 80px;
+                height: 70px;
                 
-                background-color: #d8d1d1;
-                border-radius: 5px;
+                background-color: #ebe7e7;
                 padding: 10px;
                 display: flex;
                 justify-content: center;

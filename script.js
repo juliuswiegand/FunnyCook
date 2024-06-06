@@ -5,13 +5,15 @@
 // Funny Cook Webgame
 //
 
-rowCount = 6;
+rowCount = 7;
 columnCount = 4;
+tickrate = 1000;
 
 panHTML = '<img class="content" id="pan" src="images/pan.png">';
 
-panLocation = 20;
+panLocation = 24;
 hp = 3;
+points = 0;
 
 gridItems = document.getElementsByClassName("gridItem");
 hpPointElements = document.getElementsByClassName("hp");
@@ -19,25 +21,25 @@ hpPointElements = document.getElementsByClassName("hp");
 foods = {
     "food1": {
         "html": '<img class="content" id="food1" src="images/chicken.png">',
-        "height": 6, // top 6 -> bottom 1
+        "height": rowCount, // top 7 -> bottom 1
         "currentPosition": 0,
         "direction": "down"
     },
     "food2": {
         "html": '<img class="content" id="food2" src="images/bacon.png">',
-        "height": 6, // top 6 -> bottom 2
+        "height": rowCount, // top 6 -> bottom 2
         "currentPosition": 1,
         "direction": "down"
     },
     "food3": {
         "html": '<img class="content" id="food3" src="images/pancake.png">',
-        "height": 6, // top 6 -> bottom 3
+        "height": rowCount, // top 6 -> bottom 3
         "currentPosition": 2,
         "direction": "down"
     },
     "food4": {
         "html": '<img class="content" id="food4" src="images/burger.png">',
-        "height": 6, // top 6 -> bottom 4
+        "height": rowCount, // top 6 -> bottom 4
         "currentPosition": 3,
         "direction": "down"
     }
@@ -48,9 +50,20 @@ document.addEventListener("DOMContentLoaded", function() {
     // place pan on grid
     gridItems[panLocation].innerHTML = panHTML;
 
+    // init point display
+    document.getElementById("pointDisplay").innerText = points.toString();
+
+    // init tickrate display
+    document.getElementById("tickrateDisplay").innerText = tickrate.toString() + "ms";
+
     // place food on grid + randomise their location
+    rowsWithFood = [];
     for (let i = 0; i < columnCount; i++) {
-        randomHeight = Math.floor(Math.random() * 4);
+        do {
+            randomHeight = Math.floor(Math.random() * 5);
+        } while (rowsWithFood.includes(randomHeight));
+        rowsWithFood.push(randomHeight);
+
         gridItems[i + (randomHeight * columnCount)].innerHTML = foods[`food${i + 1}`].html;
 
         foods[`food${i + 1}`].height = 6 - randomHeight;
@@ -63,12 +76,13 @@ document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
             setInterval(() => {
                 // gets called if food reaches bottom of the grid
-                if (foods[`food${i + 1}`].height === 2) {
+                if (foods[`food${i + 1}`].height === 1) {
                     foods[`food${i + 1}`].direction = "up";
                     panColumn = (panLocation % columnCount) + 1;
                     
                     if (panColumn === i + 1) {
                         catchedFood();
+                        addPoint();
                     } else {
                         removeHP();
                     }
@@ -87,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
     
                 moveFood(i + 1, foods[`food${i + 1}`].direction, foods[`food${i + 1}`].currentPosition);
-            }, Math.floor(Math.random() * 200) + 1100); // random interval
+            }, tickrate);
         }, Math.floor(Math.random() * 2500) + 750); // random start delay
     }
 });
@@ -127,6 +141,11 @@ function removeHP() {
         alert("Game over");
         window.location.reload();
     }
+}
+
+function addPoint() {
+    points += 1;
+    document.getElementById("pointDisplay").innerText = points.toString();
 }
 
 /**

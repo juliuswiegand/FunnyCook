@@ -2,16 +2,28 @@ body {
   font-family: sans-serif;
   transition: background-color 0.15s ease;
 }
-body .hpWrapper {
+body .statusBar {
   padding: 20px;
   width: calc(100% - 40px);
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 30px;
 }
-body .hpWrapper .hp {
+body .statusBar .statusBarItem {
+  width: 120px;
+  background-color: rgb(206, 206, 206);
+  border-radius: 10px;
+  color: rgb(46, 46, 46);
+  padding: 15px;
+}
+body .statusBar .statusBarItem p {
+  font-size: 30px;
+  text-align: center;
+  margin: 0;
+}
+body .statusBar .hpWrapper .hp {
   width: 50px;
   height: 50px;
 }
@@ -27,12 +39,11 @@ body .gameWrapper .gridContainer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  grid-gap: 10px;
+  row-gap: 10px;
 }
 body .gameWrapper .gridContainer .gridItem {
-  height: 80px;
-  background-color: #d8d1d1;
-  border-radius: 5px;
+  height: 70px;
+  background-color: #ebe7e7;
   padding: 10px;
   display: flex;
   justify-content: center;
